@@ -63,8 +63,10 @@ final class NavigationRouter: ObservableObject {
     }
     
     @Published private(set) var currentTransition: AnyTransition = .asymmetric(
+
         insertion: .move(edge: .trailing).combined(with: .opacity),
         removal: .move(edge: .leading).combined(with: .opacity)
+
     )
     
     func navigate(to screen: Screen,
@@ -81,6 +83,7 @@ final class NavigationRouter: ObservableObject {
             }
         }
     }
+
 } // NAVIGATIONROUTER
 
 
@@ -96,15 +99,19 @@ struct RootView: View {
                 case .start:
                     StartScreen()
                         .transition(router.currentTransition)
+
                 case .itemSelection:
                     ItemSelectionScreen()
                         .transition(router.currentTransition)
+
                 case .itemDetails(let item):
                     DetailsScreen(item: item)
                         .transition(router.currentTransition)
+
                 case .tabView(let item):
                     TabBarView(item: item)
                         .transition(router.currentTransition)
+
                 case .about:
                     AboutScreen()
                         .transition(router.currentTransition)
