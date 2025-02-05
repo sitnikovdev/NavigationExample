@@ -206,6 +206,7 @@ struct DetailsScreen: View {
     
     var body: some View {
         VStack(spacing: 20) {
+
             Text("Details for \(item)")
                 .font(.title)
             
@@ -267,6 +268,7 @@ struct TabBarView: View {
     var body: some View {
         TabView(selection: $router.selectedTab) {
 
+            // MAIN TAB
             NavigationView {
                 MainTab(item: item)
             }
@@ -274,7 +276,8 @@ struct TabBarView: View {
                 Label("Main", systemImage: "house")
             }
             .tag(Tab.main)
-            
+
+            // SECOND TAB
             NavigationView {
                 SecondTab()
             }
@@ -300,16 +303,19 @@ struct MainTab: View {
 
             List {
 
+                // PROFILE
                 NavigationLink(
                     "Profile",
                     value: MainTabDestination.profile
                 )
 
+                // SETTINGS
                 NavigationLink(
                     "Settings",
                     value: MainTabDestination.settings
                 )
 
+                // DETAILS
                 ForEach(1...3, id: \.self) { index in
                     NavigationLink(
                         "Detail \(index)",
@@ -328,12 +334,15 @@ struct MainTab: View {
             .navigationDestination(for: MainTabDestination.self) { destination in
                 switch destination {
 
+                // DETAIL VIEW
                 case .detail(let item):
                     Text("Detail View: \(item)")
 
+                // SETTINGS VIEW
                 case .settings:
                     Text("Settings View")
 
+                // PROFILE VIEW
                 case .profile:
                     Text("Profile View")
                 }
