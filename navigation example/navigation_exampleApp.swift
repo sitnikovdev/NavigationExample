@@ -145,6 +145,7 @@ struct StartScreen: View {
 
         VStack(spacing: 20) {
 
+            // CONTINUE
             if let _ = router.selectedItem {
                 Button("Continue") {
                     if let item = router.selectedItem {
@@ -152,11 +153,13 @@ struct StartScreen: View {
                     }
                 }
             }
-            
+
+            // NEW ITEM
             Button("New Item") {
                 router.navigate(to: .itemSelection)
             }
 
+            // ABOUT
             Button("About") {
                 router.navigate(to: .about)
             }
@@ -172,10 +175,13 @@ struct ItemSelectionScreen: View {
     
     var body: some View {
         VStack(spacing: 20) {
+
+            // ONE
             Button("Item One") {
                 router.navigate(to: .itemDetails("Item One"))
             }
 
+            // ITEM TWO
             Button("Item Two") {
                 router.navigate(to: .itemDetails("Item Two"))
             }
