@@ -19,6 +19,27 @@ enum Tab: Hashable {
     case second
 }
 
+// NAVIGATION DIRECTION
+enum NavigationDirection {
+    case leftDirection
+    case rightDirection
+
+    var transition: AnyTransition {
+        switch self {
+        case .leftDirection:
+            return .asymmetric(
+                insertion: .move(edge: .leading).combined(with: .opacity),
+                removal: .move(edge: .trailing).combined(with: .opacity)
+            )
+        case .rightDirection:
+            return .asymmetric(
+                insertion: .move(edge: .trailing).combined(with: .opacity),
+                removal: .move(edge: .leading).combined(with: .opacity)
+            )
+        }
+    }
+} // NAVIGATION DIRECTION
+
 // NAVIGATION ROUTER
 final class NavigationRouter: ObservableObject {
     @Published private(set) var currentScreen: Screen = .start
@@ -73,6 +94,7 @@ enum SecondTabDestination: Hashable {
     case detail(String)
 }
 
+// MARK: ENTRY POINT
 // ROOTVIEW
 struct RootView: View {
     @StateObject private var router = NavigationRouter.shared
@@ -104,6 +126,8 @@ struct RootView: View {
     }
 } // ROOTVIEW
 
+
+// MARK: SCREENS
 // START SCREEN
 struct StartScreen: View {
     @StateObject private var router = NavigationRouter.shared
@@ -187,7 +211,28 @@ struct DetailsScreen: View {
     }
 } // DETAIL SCREEN
 
+// ABOUT SCREEN
+struct AboutScreen: View {
+    @StateObject private var router = NavigationRouter.shared
 
+    var body: some View {
+        VStack {
+            Text("About Screen")
+                .font(.title)
+        }
+        .navigationTitle("About")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
+                    router.navigate(to: .start, with: .leftDirection)
+                }
+            }
+        }
+    }
+} // ABOUT SCREEN
+
+
+// MARK: TAB BAR
 // TAB BAR VIEW
 struct TabBarView: View {
     @StateObject private var router = NavigationRouter.shared
@@ -270,45 +315,4 @@ struct SecondTab: View {
 } // SECOND TAB
 
 
-// ABOUT SCREEN
-struct AboutScreen: View {
-    @StateObject private var router = NavigationRouter.shared
-    
-    var body: some View {
-        VStack {
-            Text("About Screen")
-                .font(.title)
-        }
-        .navigationTitle("About")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back") {
-                    router.navigate(to: .start, with: .leftDirection)
-                }
-            }
-        }
-    }
-} // ABOUT SCREEN
 
-
-
-// NAVIGATION DIRECTION
-enum NavigationDirection {
-    case leftDirection
-    case rightDirection
-    
-    var transition: AnyTransition {
-        switch self {
-        case .leftDirection:
-            return .asymmetric(
-                insertion: .move(edge: .leading).combined(with: .opacity),
-                removal: .move(edge: .trailing).combined(with: .opacity)
-            )
-        case .rightDirection:
-            return .asymmetric(
-                insertion: .move(edge: .trailing).combined(with: .opacity),
-                removal: .move(edge: .leading).combined(with: .opacity)
-            )
-        }
-    }
-} // NAVIGATION DIRECTION
