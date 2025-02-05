@@ -1,5 +1,7 @@
 import SwiftUI
 
+// MARK: APP
+
 @main
 struct NavigationApp: App {
     var body: some Scene {
@@ -9,11 +11,15 @@ struct NavigationApp: App {
     }
 }
 
+// MARK: NAVIGATION
+
+// TAB
 enum Tab: Hashable {
     case main
     case second
 }
 
+// NAVIGATION ROUTER
 final class NavigationRouter: ObservableObject {
     @Published private(set) var currentScreen: Screen = .start
     @Published var selectedTab: Tab = .main
@@ -23,7 +29,8 @@ final class NavigationRouter: ObservableObject {
     
     static let shared = NavigationRouter()
     private init() {}
-    
+
+    // SCREEN
     enum Screen: Equatable {
         case start
         case itemSelection
@@ -52,18 +59,21 @@ final class NavigationRouter: ObservableObject {
             }
         }
     }
-}
+} // NAVIGATIONROUTER
 
+// MAIN TAB DESTINATION
 enum MainTabDestination: Hashable {
     case detail(String)
     case settings
     case profile
 }
 
+// SECOND TAB DESTINATION
 enum SecondTabDestination: Hashable {
     case detail(String)
 }
 
+// ROOTVIEW
 struct RootView: View {
     @StateObject private var router = NavigationRouter.shared
     
@@ -92,8 +102,9 @@ struct RootView: View {
         }
 
     }
-}
+} // ROOTVIEW
 
+// START SCREEN
 struct StartScreen: View {
     @StateObject private var router = NavigationRouter.shared
     
@@ -120,8 +131,9 @@ struct StartScreen: View {
         }
         .padding()
     }
-}
+} // START SCREEN
 
+// ITEM SELECTION SCREEN
 struct ItemSelectionScreen: View {
     @StateObject private var router = NavigationRouter.shared
     
@@ -146,8 +158,10 @@ struct ItemSelectionScreen: View {
             }
         }
     }
-}
+} // ITEM SELECTION SCREEN
 
+
+// DETAIL SCREEN
 struct DetailsScreen: View {
     @StateObject private var router = NavigationRouter.shared
     let item: String
@@ -171,8 +185,10 @@ struct DetailsScreen: View {
             }
         }
     }
-}
+} // DETAIL SCREEN
 
+
+// TAB BAR VIEW
 struct TabBarView: View {
     @StateObject private var router = NavigationRouter.shared
     let item: String
@@ -196,8 +212,10 @@ struct TabBarView: View {
             .tag(Tab.second)
         }
     }
-}
+} // TAB BAR VIEW
 
+
+// MAIN TAB
 struct MainTab: View {
     @StateObject private var router = NavigationRouter.shared
     let item: String
@@ -240,15 +258,19 @@ struct MainTab: View {
             }
         }
     }
-}
+} // MAIN TAB
 
+
+// SECOND TAB
 struct SecondTab: View {
     var body: some View {
         Text("Second Tab Content")
             .navigationTitle("Second Tab")
     }
-}
+} // SECOND TAB
 
+
+// ABOUT SCREEN
 struct AboutScreen: View {
     @StateObject private var router = NavigationRouter.shared
     
@@ -266,10 +288,11 @@ struct AboutScreen: View {
             }
         }
     }
-}
+} // ABOUT SCREEN
 
 
 
+// NAVIGATION DIRECTION
 enum NavigationDirection {
     case leftDirection
     case rightDirection
@@ -288,4 +311,4 @@ enum NavigationDirection {
             )
         }
     }
-}
+} // NAVIGATION DIRECTION
