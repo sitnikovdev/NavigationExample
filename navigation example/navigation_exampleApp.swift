@@ -40,11 +40,26 @@ enum NavigationDirection {
 
 // NAVIGATION ROUTER
 final class NavigationRouter: ObservableObject {
+    // SCREENS
+    enum Screen: Equatable {
+        case start
+        case itemSelection
+        case itemDetails(String)
+        case tabView(item: String)
+        case about
+    }
+
+    // MARK: ROUTER PROPERTIES
     @Published private(set) var currentScreen: Screen = .start
+
     @Published var selectedTab: Tab = .main
+
     @Published private(set) var selectedItem: String? = nil
+
     @Published var mainTabPath: [MainTabDestination] = []
+
     @Published var secondTabPath: [SecondTabDestination] = []
+
     @Published private(set) var currentTransition: AnyTransition = .asymmetric(
 
         insertion: .move(edge: .trailing).combined(with: .opacity),
@@ -54,15 +69,6 @@ final class NavigationRouter: ObservableObject {
 
     static let shared = NavigationRouter()
     private init() {}
-
-    // SCREEN
-    enum Screen: Equatable {
-        case start
-        case itemSelection
-        case itemDetails(String)
-        case tabView(item: String)
-        case about
-    }
 
 
     // MARK: ROUTER NAVIGAION METHOD
