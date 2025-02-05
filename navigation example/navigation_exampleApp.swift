@@ -67,7 +67,10 @@ final class NavigationRouter: ObservableObject {
         removal: .move(edge: .leading).combined(with: .opacity)
     )
     
-    func navigate(to screen: Screen, with direction: NavigationDirection = .rightDirection) {
+    func navigate(to screen: Screen,
+                  with direction: NavigationDirection = .rightDirection
+    ) {
+
         DispatchQueue.main.async {
             self.currentTransition = direction.transition
             withAnimation(.easeInOut(duration: 0.3)) {
