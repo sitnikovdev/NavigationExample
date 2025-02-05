@@ -17,7 +17,7 @@ enum Tab: Hashable {
     case second
 }
 
-// NAVIGATION DIRECTION
+// NAVIGATION TRANSITION
 enum NavigationDirection {
     case leftDirection
     case rightDirection
@@ -80,17 +80,6 @@ final class NavigationRouter: ObservableObject {
     }
 } // NAVIGATIONROUTER
 
-// MAIN TAB DESTINATION
-enum MainTabDestination: Hashable {
-    case detail(String)
-    case settings
-    case profile
-}
-
-// SECOND TAB DESTINATION
-enum SecondTabDestination: Hashable {
-    case detail(String)
-}
 
 // MARK: ENTRY POINT
 // ROOTVIEW
@@ -231,6 +220,18 @@ struct AboutScreen: View {
 
 
 // MARK: TAB BAR
+// MAIN TAB DESTINATION
+enum MainTabDestination: Hashable {
+    case detail(String)
+    case settings
+    case profile
+}
+
+// SECOND TAB DESTINATION
+enum SecondTabDestination: Hashable {
+    case detail(String)
+}
+
 // TAB BAR VIEW
 struct TabBarView: View {
     @StateObject private var router = NavigationRouter.shared
