@@ -26,13 +26,20 @@ enum NavigationDirection {
         switch self {
         case .leftDirection:
             return .asymmetric(
-                insertion: .move(edge: .leading).combined(with: .opacity),
-                removal: .move(edge: .trailing).combined(with: .opacity)
+                insertion: .move(edge: .leading)
+                           .combined(with: .opacity),
+
+                removal: .move(edge: .trailing)
+                         .combined(with: .opacity)
             )
         case .rightDirection:
             return .asymmetric(
-                insertion: .move(edge: .trailing).combined(with: .opacity),
-                removal: .move(edge: .leading).combined(with: .opacity)
+
+                insertion: .move(edge: .trailing)
+                           .combined(with: .opacity),
+
+                removal: .move(edge: .leading)
+                         .combined(with: .opacity)
             )
         }
     }
@@ -132,7 +139,8 @@ struct RootView: View {
                         .transition(router.currentTransition)
                 }
             }
-            .animation(transitionAnimation, value: router.currentScreen)
+            .animation(transitionAnimation,
+                       value: router.currentScreen)
         }
 
     }
@@ -193,8 +201,10 @@ struct ItemSelectionScreen: View {
         .navigationTitle("Select Item")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
+
                 Button("Back") {
-                    router.navigate(to: .start, with: .leftDirection)
+                    router.navigate(to: .start,
+                                    with: .leftDirection)
                 }
             }
         }
@@ -221,8 +231,10 @@ struct DetailsScreen: View {
         .navigationTitle("Details")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
+
                 Button("Back") {
-                    router.navigate(to: .itemSelection, with: .leftDirection)
+                    router.navigate(to: .itemSelection,
+                                    with: .leftDirection)
                 }
             }
         }
@@ -241,8 +253,10 @@ struct AboutScreen: View {
         .navigationTitle("About")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
+
                 Button("Back") {
-                    router.navigate(to: .start, with: .leftDirection)
+                    router.navigate(to: .start,
+                                    with: .leftDirection)
                 }
             }
         }
@@ -321,6 +335,7 @@ struct MainTab: View {
                 // DETAILS
                 ForEach(1...3, id: \.self) { index in
                     NavigationLink(
+
                         "Detail \(index)",
                         value: MainTabDestination.detail("Item \(index)")
                     )
@@ -329,12 +344,15 @@ struct MainTab: View {
             .navigationTitle(item)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
+
                     Button("Back") {
-                        router.navigate(to: .start, with: .leftDirection)
+                        router.navigate(to: .start,
+                                        with: .leftDirection)
                     }
                 }
             }
             .navigationDestination(for: MainTabDestination.self) { destination in
+
                 switch destination {
 
                 // DETAIL VIEW
