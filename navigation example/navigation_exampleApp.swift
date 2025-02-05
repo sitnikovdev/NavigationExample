@@ -45,7 +45,13 @@ final class NavigationRouter: ObservableObject {
     @Published private(set) var selectedItem: String? = nil
     @Published var mainTabPath: [MainTabDestination] = []
     @Published var secondTabPath: [SecondTabDestination] = []
-    
+    @Published private(set) var currentTransition: AnyTransition = .asymmetric(
+
+        insertion: .move(edge: .trailing).combined(with: .opacity),
+        removal: .move(edge: .leading).combined(with: .opacity)
+
+    )
+
     static let shared = NavigationRouter()
     private init() {}
 
@@ -57,18 +63,9 @@ final class NavigationRouter: ObservableObject {
         case tabView(item: String)
         case about
     }
-    
-    func clearMainPath() {
-        mainTabPath.removeAll()
-    }
-    
-    @Published private(set) var currentTransition: AnyTransition = .asymmetric(
 
-        insertion: .move(edge: .trailing).combined(with: .opacity),
-        removal: .move(edge: .leading).combined(with: .opacity)
 
-    )
-    
+    // MARK: ROUTER NAVIGAION METHOD
     func navigate(to screen: Screen,
                   with direction: NavigationDirection = .rightDirection
     ) {
@@ -84,6 +81,10 @@ final class NavigationRouter: ObservableObject {
         }
     }
 
+    func clearMainPath() {
+        mainTabPath.removeAll()
+    }
+
 } // NAVIGATIONROUTER
 
 
@@ -96,6 +97,7 @@ struct RootView: View {
         NavigationView {
             ZStack {
                 switch router.currentScreen {
+
                 case .start:
                     StartScreen()
                         .transition(router.currentTransition)
@@ -249,6 +251,7 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $router.selectedTab) {
+
             NavigationView {
                 MainTab(item: item)
             }
@@ -275,16 +278,21 @@ struct MainTab: View {
     let item: String
     
     var body: some View {
+
         NavigationStack(path: $router.mainTabPath) {
+
             List {
+
                 NavigationLink(
                     "Profile",
                     value: MainTabDestination.profile
                 )
+
                 NavigationLink(
                     "Settings",
                     value: MainTabDestination.settings
                 )
+
                 ForEach(1...3, id: \.self) { index in
                     NavigationLink(
                         "Detail \(index)",
@@ -302,10 +310,13 @@ struct MainTab: View {
             }
             .navigationDestination(for: MainTabDestination.self) { destination in
                 switch destination {
+
                 case .detail(let item):
                     Text("Detail View: \(item)")
+
                 case .settings:
                     Text("Settings View")
+
                 case .profile:
                     Text("Profile View")
                 }
