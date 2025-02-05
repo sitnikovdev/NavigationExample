@@ -62,8 +62,11 @@ final class NavigationRouter: ObservableObject {
 
     @Published private(set) var currentTransition: AnyTransition = .asymmetric(
 
-        insertion: .move(edge: .trailing).combined(with: .opacity),
-        removal: .move(edge: .leading).combined(with: .opacity)
+        insertion: .move(edge: .trailing)
+                   .combined(with: .opacity),
+
+        removal: .move(edge: .leading)
+                 .combined(with: .opacity)
 
     )
 
