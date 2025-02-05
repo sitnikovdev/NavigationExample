@@ -77,7 +77,9 @@ final class NavigationRouter: ObservableObject {
     ) {
 
         DispatchQueue.main.async {
+
             self.currentTransition = direction.transition
+
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.currentScreen = screen
                 if case .tabView(let item) = screen {
