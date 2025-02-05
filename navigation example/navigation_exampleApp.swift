@@ -80,8 +80,10 @@ final class NavigationRouter: ObservableObject {
 
             self.currentTransition = direction.transition
 
-            withAnimation(.easeInOut(duration: 0.3)) {
+            withAnimation(transitionAnimation) {
+
                 self.currentScreen = screen
+
                 if case .tabView(let item) = screen {
                     self.selectedItem = item
                 }
@@ -127,7 +129,7 @@ struct RootView: View {
                         .transition(router.currentTransition)
                 }
             }
-            .animation(.easeInOut(duration: 0.3), value: router.currentScreen)
+            .animation(transitionAnimation, value: router.currentScreen)
         }
 
     }
@@ -343,4 +345,8 @@ struct SecondTab: View {
 } // SECOND TAB
 
 
+// ANIMATION
+private var transitionAnimation: Animation {
+    .easeInOut(duration: 0.3)
+}
 
