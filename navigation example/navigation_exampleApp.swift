@@ -1,7 +1,6 @@
 import SwiftUI
 
 // MARK: APP
-
 @main
 struct NavigationApp: App {
     var body: some Scene {
@@ -12,7 +11,6 @@ struct NavigationApp: App {
 }
 
 // MARK: NAVIGATION
-
 // TAB
 enum Tab: Hashable {
     case main
