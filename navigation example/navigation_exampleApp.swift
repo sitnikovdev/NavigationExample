@@ -142,26 +142,26 @@ struct StartScreen: View {
     @StateObject private var router = NavigationRouter.shared
     
     var body: some View {
+
         VStack(spacing: 20) {
+
             if let _ = router.selectedItem {
                 Button("Continue") {
                     if let item = router.selectedItem {
                         router.navigate(to: .tabView(item: item))
                     }
                 }
-                .buttonStyle(.borderedProminent)
             }
             
             Button("New Item") {
                 router.navigate(to: .itemSelection)
             }
-            .buttonStyle(.borderedProminent)
-            
+
             Button("About") {
                 router.navigate(to: .about)
             }
-            .buttonStyle(.borderedProminent)
         }
+        .buttonStyle(.borderedProminent)
         .padding()
     }
 } // START SCREEN
