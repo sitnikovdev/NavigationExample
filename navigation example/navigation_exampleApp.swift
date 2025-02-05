@@ -286,7 +286,7 @@ struct TabBarView: View {
         TabView(selection: $router.selectedTab) {
 
             // MAIN TAB
-            NavigationView {
+            NavigationStack {
                 MainTab(item: item)
             }
             .tabItem {
@@ -295,7 +295,7 @@ struct TabBarView: View {
             .tag(Tab.main)
 
             // SECOND TAB
-            NavigationView {
+            NavigationStack {
                 SecondTab()
             }
             .tabItem {
