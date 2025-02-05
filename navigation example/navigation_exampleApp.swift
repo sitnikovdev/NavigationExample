@@ -114,7 +114,9 @@ struct RootView: View {
     @StateObject private var router = NavigationRouter.shared
     
     var body: some View {
+
         NavigationView {
+
             ZStack {
                 switch router.currentScreen {
 
