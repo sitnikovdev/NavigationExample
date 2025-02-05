@@ -284,7 +284,9 @@ struct TabBarView: View {
 
 // MAIN TAB
 struct MainTab: View {
+
     @StateObject private var router = NavigationRouter.shared
+
     let item: String
     
     var body: some View {
