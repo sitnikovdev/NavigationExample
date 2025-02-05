@@ -160,7 +160,9 @@ struct StartScreen: View {
 
             // CONTINUE
             if let _ = router.selectedItem {
+
                 Button("Continue") {
+
                     if let item = router.selectedItem {
                         router.navigate(to: .tabView(item: item))
                     }
