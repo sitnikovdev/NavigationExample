@@ -175,13 +175,12 @@ struct ItemSelectionScreen: View {
             Button("Item One") {
                 router.navigate(to: .itemDetails("Item One"))
             }
-            .buttonStyle(.borderedProminent)
-            
+
             Button("Item Two") {
                 router.navigate(to: .itemDetails("Item Two"))
             }
-            .buttonStyle(.borderedProminent)
         }
+        .buttonStyle(.borderedProminent)
         .navigationTitle("Select Item")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -207,8 +206,8 @@ struct DetailsScreen: View {
             Button("Continue") {
                 router.navigate(to: .tabView(item: item))
             }
-            .buttonStyle(.borderedProminent)
         }
+        .buttonStyle(.borderedProminent)
         .navigationTitle("Details")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
