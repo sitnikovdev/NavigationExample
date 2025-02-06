@@ -68,6 +68,7 @@ final class NavigationRouter: ObservableObject {
     @Published var mainTabPath: [MainTabDestination] = []
     @Published var secondTabPath: [SecondTabDestination] = []
 
+    // Current transition to be applied
     @Published private(set) var currentTransition: AnyTransition = .asymmetric(
 
         insertion: .move(edge: .trailing)
