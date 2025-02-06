@@ -19,9 +19,10 @@ enum Tab: Hashable {
 
 // NAVIGATION TRANSITION
 enum NavigationDirection {
-    case leftDirection
-    case rightDirection
+    case leftDirection  // For "back" navigation
+    case rightDirection // For "forward" navigation
 
+    // Smooth transitions between screens
     var transition: AnyTransition {
         switch self {
         case .leftDirection:
