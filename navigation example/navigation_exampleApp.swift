@@ -24,7 +24,9 @@ enum NavigationDirection {
 
     // Smooth transitions between screens
     var transition: AnyTransition {
+
         switch self {
+
         case .leftDirection:
             return .asymmetric(
                 insertion: .move(edge: .leading)
