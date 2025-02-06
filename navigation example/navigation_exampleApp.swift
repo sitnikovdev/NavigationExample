@@ -63,8 +63,8 @@ final class NavigationRouter: ObservableObject {
 
     @Published private(set) var selectedItem: String? = nil
 
+    // Navigation stack state for each tab
     @Published var mainTabPath: [MainTabDestination] = []
-
     @Published var secondTabPath: [SecondTabDestination] = []
 
     @Published private(set) var currentTransition: AnyTransition = .asymmetric(
@@ -81,7 +81,7 @@ final class NavigationRouter: ObservableObject {
     private init() {}
 
 
-    // MARK: ROUTER NAVIGAION METHOD
+    // MARK: ROUTER MAIN NAVIGAION METHOD
     func navigate(to screen: Screen,
                   with direction: NavigationDirection = .rightDirection
     ) {
@@ -100,7 +100,7 @@ final class NavigationRouter: ObservableObject {
             }
         }
     }
-
+    // Helper method to clear navigation stack
     func clearMainPath() {
         mainTabPath.removeAll()
     }
@@ -108,8 +108,9 @@ final class NavigationRouter: ObservableObject {
 } // NAVIGATIONROUTER
 
 
-// MARK: ENTRY POINT
+// MARK: APP ENTRY POINT
 // ROOTVIEW
+// Root view that orchestrates navigation flow in the application
 struct RootView: View {
     @StateObject private var router = NavigationRouter.shared
     
@@ -159,16 +160,19 @@ struct StartScreen: View {
         VStack(spacing: 20) {
 
             // CONTINUE
+            // Continue button is shown only if some item was previously selected
             if let _ = router.selectedItem {
 
                 Button("Continue") {
 
                     if let item = router.selectedItem {
+                        // Router in action - navigating to tab view with selected item
                         router.navigate(to: .tabView(item: item))
                     }
                 }
             }
 
+            //some other UI components
             // NEW ITEM
             Button("New Item") {
                 router.navigate(to: .itemSelection)
@@ -320,6 +324,7 @@ struct MainTab: View {
     
     var body: some View {
 
+        // Using NavigationStack for native push/pop navigation within the tab
         NavigationStack(path: $router.mainTabPath) {
 
             List {
@@ -346,6 +351,7 @@ struct MainTab: View {
                 }
             }
             .navigationTitle(item)
+            // Custom back navigation to start screen
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
 
@@ -356,6 +362,7 @@ struct MainTab: View {
                 }
             }
             .navigationDestination(for: MainTabDestination.self) { destination in
+             // Type-safe destination handling
 
                 switch destination {
 
